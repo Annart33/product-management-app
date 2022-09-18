@@ -1,0 +1,10 @@
+input{
+    display: block;
+    margin: 15px;
+    height: 20px;
+    width: 200px;
+}
+
+mat-card{
+    height: 100%;
+}

@@ -18,13 +18,17 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   save(product: Product): void {
-    this.productService.updateProduct(this.selectedProd.id, product.name, product.description, product.price);
-    this.globalService.hideCard();
+    const ob = this.productService.updateProduct(this.selectedProd.id, product.name, product.description, product.price);
+    ob.subscribe(prod => {
+      this.globalService.hideCard();
+    });
   }
 
   add(product: Product) {
-    this.productService.addProduct(product);
-    this.globalService.hideAddProd();
+    const ob = this.productService.addProduct(product);
+    ob.subscribe(prod => {
+      this.globalService.hideAddProd();
+    });
   }
 
 }

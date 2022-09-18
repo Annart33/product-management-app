@@ -15,7 +15,10 @@ export class ProductsSectionComponent implements OnInit {
   constructor(public productService: ProductService) { }
 
   ngOnInit(): void {
-    this.products = this.productService.getAllProducts();
+    const ob = this.productService.getAllProducts();
+    ob.subscribe(prods => {
+      this.products = prods;
+    });
   }
 
   setProduct(product: Product): void {
@@ -23,7 +26,6 @@ export class ProductsSectionComponent implements OnInit {
   }
 
   setProducts(products: Array<Product>): void {
-    
     this.products = products;
   }
 

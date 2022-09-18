@@ -29,3 +29,8 @@
 p {
     overflow-wrap: anywhere;
 }
+
+.selected{
+    background-color: rgb(237, 237, 237);
+}
+

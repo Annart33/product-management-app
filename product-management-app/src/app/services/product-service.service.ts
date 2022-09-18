@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Product } from '../models/product';
 
 @Injectable({
@@ -20,41 +21,53 @@ export class ProductService {
     }
   }
 
-  getAllProducts(): Array<Product> {
-    return this.products;
-  }
-
-  getProductById(id: number): Product | undefined {
-    let result;
-    this.products.forEach(prod => {
-      if (prod.id === id) result = prod;
+  getAllProducts(): Observable<Array<Product>> {
+    return new Observable<Array<Product>>(observer => {
+      setTimeout(() => observer.next(this.products), 1000);
     });
-    return result;
   }
 
-  getProductByName(name: string): Product | undefined {
-    let result;
-    this.products.forEach(prod => {
-      if (prod.name === name) result = prod;
+  getProductByName(name: string): Observable<Product | undefined> {
+    return new Observable<Product | undefined>(observer => {
+      setTimeout(() => {
+        let result;
+        this.products.forEach(prod => {
+          if (prod.name === name) result = prod;
+        });
+        observer.next(result)
+      }, 1000);
     });
-    return result;
   }
 
-  addProduct(product: Product): void {
-    this.idCount++;
-    product.id = this.idCount;
-    this.products.push(product);
+  addProduct(product: Product): Observable<Product> {
+    return new Observable<Product>(observer => {
+      setTimeout(() => {
+        this.idCount++;
+        product.id = this.idCount;
+        this.products.push(product);
+        observer.next(product);
+      }, 1000);
+    });
   }
 
-  updateProduct(id: number, name?: string, desc?: string, price?: number): void {
-    if (name) this.products[id].name = name;
-    if (desc) this.products[id].description = desc;
-    if (price) this.products[id].price = price;
+  updateProduct(id: number, name?: string, desc?: string, price?: number): Observable<Product> {
+    return new Observable<Product>(observer => {
+      setTimeout(() => {
+        if (name) this.products[id].name = name;
+        if (desc) this.products[id].description = desc;
+        if (price) this.products[id].price = price;
+        observer.next(this.products[id]);
+      }, 1000);
+    });
   }
 
-  deleteProduct(id: number): void {
-    let index = this.products.findIndex(prod => prod.id === id);;
-    this.products.splice(index, 1);
+  deleteProduct(id: number): Observable<void> {
+    return new Observable<void>(observer => {
+      setTimeout(() => {
+        let index = this.products.findIndex(prod => prod.id === id);
+        this.products.splice(index, 1);
+      }, 1000);
+    });
   }
 
 }

@@ -12,20 +12,39 @@ export class ProductComponent implements OnInit {
   @Input() product = new Product(0, "", "", 0);
   @Output() selectedProdEvent = new EventEmitter<Product>();
 
+  selected: boolean = false;
+
   constructor(private globalService: GlobalService, private productService: ProductService) { }
 
   ngOnInit(): void {
   }
 
+  setSelected(): void {
+    this.selected = !this.selected;
+  }
+
+  removeSelected(): void {
+    document.querySelector(".selected")?.classList.remove("selected");
+    this.globalService.hideCard();
+  }
+
   showDetails(): void {
-    this.globalService.hideAddProd();
-    this.globalService.setProd(this.product);
-    this.selectedProdEvent.emit(this.product);
+    this.removeSelected();
+
+    if (!this.selected) {
+      this.globalService.hideAddProd();
+      this.globalService.setProd(this.product);
+      this.selectedProdEvent.emit(this.product);
+    }
+
+    this.setSelected();
   }
 
   delete(): void {
-    console.log(this.product.id)
-    this.productService.deleteProduct(this.product.id);
+    const ob = this.productService.deleteProduct(this.product.id);
+    ob.subscribe(prod => {
+      this.globalService.hideCard();
+    });
   }
 
 }

@@ -1,4 +1,4 @@
-<mat-card class="card" (click)="showDetails()">
+<mat-card class="card" (click)="showDetails()" [ngClass]="selected ? 'selected' : ''">
     <div class="prod-container">
         <img class="prod-image" src="../../../../../assets/img/box.png">
         <div class="prod-details">

@@ -1,7 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Product } from 'src/app/models/product';
-import { GlobalService } from 'src/app/services/global-service.service';
-import { ProductService } from 'src/app/services/product-service.service';
 
 @Component({
   selector: 'app-search',
@@ -17,7 +15,7 @@ export class SearchComponent implements OnInit {
   waitTime: number = 500;
   allProds: Array<Product> = this.prods;
 
-  constructor(private globalService: GlobalService) { }
+  constructor() { }
  
 
   ngOnInit(): void {

@@ -2,23 +2,23 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { MainComponent } from './layout/main/main.component';
 import { HeaderComponent } from './layout/header/header.component';
-import { AddNewComponent } from './components/add-new/add-new.component';
-import { SearchComponent } from './components/search/search.component';
-import { ProductComponent } from './components/product/product.component';
-import { ProductDetailsComponent } from './components/product-details/product-details.component';
-import { ProductTitleComponent } from './shared/components/product-title/product-title.component';
-import { ProductDescriptionComponent } from './shared/components/product-description/product-description.component';
-import { DeleteButtonComponent } from './shared/components/delete-button/delete-button.component';
-import { ProductImageComponent } from './shared/components/product-image/product-image.component';
+import { AddNewComponent } from './layout/main/products-section/add-new/add-new.component';
+import { SearchComponent } from './layout/main/products-section/search/search.component';
+import { ProductComponent } from './layout/main/products-section/product/product.component';
+import { ProductDetailsComponent } from './layout/main/products-section/product-details/product-details.component';
+import { ButtonComponent } from './shared/components/button/button.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {MatCardModule} from '@angular/material/card';
 import { InputComponent } from './shared/components/input/input.component';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ProductsSectionComponent } from './layout/main/products-section/products-section.component';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
@@ -29,19 +29,21 @@ import { InputComponent } from './shared/components/input/input.component';
     SearchComponent,
     ProductComponent,
     ProductDetailsComponent,
-    ProductTitleComponent,
-    ProductDescriptionComponent,
-    DeleteButtonComponent,
-    ProductImageComponent,
-    InputComponent
+    ButtonComponent,
+    InputComponent,
+    ProductsSectionComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     MatToolbarModule,
     MatButtonModule,
     MatInputModule,
-    MatCardModule
+    MatCardModule,
+    FormsModule,
+    MatAutocompleteModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

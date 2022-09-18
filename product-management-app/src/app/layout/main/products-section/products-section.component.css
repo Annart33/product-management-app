@@ -1,0 +1,17 @@
+.edit-product, .products{
+    width: 50%;
+    margin: 50px;
+}
+
+.top-section{
+    align-self: flex-start;
+    width: 100%;
+    margin: 20px;
+}
+
+.products-container{
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    width: 100%;
+}

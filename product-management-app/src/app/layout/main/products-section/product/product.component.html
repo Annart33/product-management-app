@@ -1,0 +1,12 @@
+<mat-card class="card" (click)="showDetails()">
+    <div class="prod-container">
+        <img class="prod-image" src="../../../../../assets/img/box.png">
+        <div class="prod-details">
+            <h2>{{product.name}}</h2>
+            <p>{{product.description}}</p>
+        </div>
+    </div>
+    <div class="delete">
+        <app-button (click)="delete()" [buttonValue]="'Delete'"></app-button>
+    </div>
+</mat-card>

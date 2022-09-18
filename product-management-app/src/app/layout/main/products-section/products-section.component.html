@@ -1,0 +1,14 @@
+<div class="top-section">
+    <app-add-new></app-add-new>
+    <app-search [prods]="products" (filteredProdEvent)="setProducts($event)"></app-search>
+</div>
+
+<div class="products-container">
+    <div class="products">
+        <app-product *ngFor="let prod of products" [product]="prod" (selectedProdEvent)="setProduct($event)">
+        </app-product>
+    </div>
+    <div class="edit-product">
+        <app-product-details [selectedProd]="selectedProduct"></app-product-details>
+    </div>
+</div>

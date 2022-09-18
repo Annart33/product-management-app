@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { GlobalService } from 'src/app/services/global-service.service';
 
 @Component({
   selector: 'app-add-new',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddNewComponent implements OnInit {
 
-  constructor() { }
+
+  constructor(private globalService: GlobalService) { }
 
   ngOnInit(): void {
+  }
+
+  addNewProduct(): void {
+    this.globalService.setAddProd();
+    this.globalService.hideCard();
   }
 
 }

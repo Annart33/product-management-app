@@ -1,0 +1,53 @@
+<mat-card class="card" *ngIf="globalService.shouldShowCard()">
+  <mat-card-title-group>
+    <mat-card-title>{{selectedProd.name}} - Details</mat-card-title>
+  </mat-card-title-group>
+
+  <img class="prod-image" src="../../../../../assets/img/box.png">
+
+  <mat-card-content>
+    <form #product="ngForm" (ngSubmit)="save(product.form.value)">
+      <div class="form-field">
+        <label>Name</label>
+        <input class="form-control" type="text" name="name" placeholder="name" [ngModel]="selectedProd.name">
+      </div>
+      <div class="form-field">
+        <label>Description</label>
+        <textarea class="form-control" placeholder="description" name="description"
+          [ngModel]="selectedProd.description"></textarea>
+      </div>
+      <div class="form-field price">
+        <label>Price</label>
+        <input class="form-control" type="text" placeholder="price" name="price" [ngModel]="selectedProd.price"> $
+      </div>
+      <app-button type="submit" [buttonValue]="'Save'"></app-button>
+    </form>
+  </mat-card-content>
+
+</mat-card>
+
+<mat-card class="card" *ngIf="globalService.shouldShowAddProd()">
+  <mat-card-title-group>
+    <mat-card-title>Add New Product</mat-card-title>
+  </mat-card-title-group>
+
+  <mat-card-content>
+    <form #newproduct="ngForm" (ngSubmit)="add(newproduct.form.value)">
+      <div class="form-field">
+        <label>Name</label>
+        <input class="form-control" type="text" name="name" (ngModel)="selectedProd.name" placeholder="name">
+      </div>
+      <div class="form-field">
+        <label>Descripton</label>
+        <textarea class="form-control" placeholder="description" (ngModel)="selectedProd.description"
+          name="description"></textarea>
+      </div>
+      <div class="form-field price">
+        <label>Price</label>
+        <input class="form-control" type="text" placeholder="price" (ngModel)="selectedProd.price" name="price">
+      </div>
+      <app-button type="submit" [buttonValue]="'Add'"></app-button>
+    </form>
+  </mat-card-content>
+
+</mat-card>

@@ -1,0 +1,31 @@
+.card {
+    margin: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.prod-image {
+    height: 200px;
+    width: 200px;
+}
+
+.prod-details {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+}
+
+.delete {
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.prod-container {
+    display: flex;
+    flex-direction: row;
+}
+
+p {
+    overflow-wrap: anywhere;
+}

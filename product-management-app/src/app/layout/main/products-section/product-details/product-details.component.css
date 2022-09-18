@@ -1,0 +1,42 @@
+input, textarea {
+    width: 80%;
+    border-radius: 5px;
+    border: 1px solid gray;
+}
+
+label{
+    display: block;
+}
+
+input{
+    height: 20px;
+}
+
+textarea{
+    height: 100px;
+}
+
+mat-card{
+    height: fit-content;
+    padding: 10px;
+}
+
+.prod-image{
+    width: 300px;
+    height: 300px;
+}
+
+.form-field{
+    margin: 15px;
+    margin-top: 50px;
+}
+
+.price input{
+    width: 30% !important;
+    display: inline;
+}
+
+app-button{
+    display: flex;
+    flex-direction: row-reverse;
+}

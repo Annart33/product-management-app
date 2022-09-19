@@ -1,73 +1,64 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Product } from '../models/product';
+import { StatusCodes } from '../shared/enums';
+import { StorageManagerService } from './storage-manager.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
 
-  products: Array<Product> = [
-    new Product(0, "Scarface", "Action", 5),
-    new Product(1, "Scent of a woman", "Drama", 4),
-    new Product(2, "Dr. No", "Action", 3),
-    new Product(3, "Breakfast at Tiffany's", "Romantic comedy", 2),
-  ];
-  idCount: number = 0;
+  constructor(private storageManagerService: StorageManagerService) {
+    //Only for a non-empty db simulation - initialization for a starting point
+    const prodsInDB: Array<Product> = [
+      new Product(0, "Scarface", "Action film - CD", 5),
+      new Product(1, "Scent of a woman", "Drama film - CD", 4),
+      new Product(2, "James Bond - Dr. No", "Action film - CD", 3),
+      new Product(3, "Breakfast at Tiffany's", "Romantic comedy - CD", 2),
+    ]
+    this.storageManagerService.setProducts(prodsInDB);
+  }
 
-  constructor() {
-    if (this.products.length) {
-      this.idCount = this.products[this.products.length - 1].id;
+  async getAllProducts(): Promise<Array<Product>> {
+    const res = await this.storageManagerService.getProducts();
+    if (res.statusCode == StatusCodes.NotFound) return [];
+    return res.message as Product[];
+  }
+
+  async getProductByName(name: string): Promise<Array<Product> | null> {
+    let result = null;
+    const prods = await this.getAllProducts();
+    prods?.forEach(prod => {
+      if (prod.name == name) result = prod;
+    });
+    return result;
+  }
+
+  async addProduct(product: Product): Promise<void> {
+    const prods = await this.getAllProducts(); 
+    product.id = prods.length;
+    if (prods) {
+      prods.push(product);
+      this.storageManagerService.setProducts(prods);
     }
   }
 
-  getAllProducts(): Observable<Array<Product>> {
-    return new Observable<Array<Product>>(observer => {
-      setTimeout(() => observer.next(this.products), 1000);
-    });
+  async updateProduct(id: number, name?: string, desc?: string, price?: number): Promise<void> {
+    const prods = await this.getAllProducts();
+    if (prods) {
+      if (name) prods[id].name = name;
+      if (desc) prods[id].description = desc;
+      if (price) prods[id].price = price;
+      this.storageManagerService.setProducts(prods);
+    }
   }
 
-  getProductByName(name: string): Observable<Product | undefined> {
-    return new Observable<Product | undefined>(observer => {
-      setTimeout(() => {
-        let result;
-        this.products.forEach(prod => {
-          if (prod.name === name) result = prod;
-        });
-        observer.next(result)
-      }, 1000);
-    });
-  }
-
-  addProduct(product: Product): Observable<Product> {
-    return new Observable<Product>(observer => {
-      setTimeout(() => {
-        this.idCount++;
-        product.id = this.idCount;
-        this.products.push(product);
-        observer.next(product);
-      }, 1000);
-    });
-  }
-
-  updateProduct(id: number, name?: string, desc?: string, price?: number): Observable<Product> {
-    return new Observable<Product>(observer => {
-      setTimeout(() => {
-        if (name) this.products[id].name = name;
-        if (desc) this.products[id].description = desc;
-        if (price) this.products[id].price = price;
-        observer.next(this.products[id]);
-      }, 1000);
-    });
-  }
-
-  deleteProduct(id: number): Observable<void> {
-    return new Observable<void>(observer => {
-      setTimeout(() => {
-        let index = this.products.findIndex(prod => prod.id === id);
-        this.products.splice(index, 1);
-      }, 1000);
-    });
+  async deleteProduct(id: number): Promise<void> {
+    const prods = await this.getAllProducts();
+    let index = prods.findIndex(prod => prod.id === id);
+    prods.splice(index, 1);
+    this.storageManagerService.setProducts(prods);
   }
 
 }

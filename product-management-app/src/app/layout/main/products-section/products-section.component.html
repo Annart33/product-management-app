@@ -5,10 +5,12 @@
 
 <div class="products-container">
     <div class="products">
-        <app-product *ngFor="let prod of products" [product]="prod" (selectedProdEvent)="setProduct($event)">
+        <app-product *ngFor="let prod of products" [product]="prod" (deletedProdEvent)="setProduct($event)"
+            (selectedProdEvent)="setSingleProduct($event)">
         </app-product>
     </div>
     <div class="edit-product">
-        <app-product-details [selectedProd]="selectedProduct"></app-product-details>
+        <app-product-details [selectedProd]="selectedProduct" (selectedProdEvent)="setProduct($event)">
+        </app-product-details>
     </div>
 </div>

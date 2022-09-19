@@ -14,18 +14,26 @@ export class ProductsSectionComponent implements OnInit {
 
   constructor(public productService: ProductService) { }
 
-  ngOnInit(): void {
-    const ob = this.productService.getAllProducts();
-    ob.subscribe(prods => {
-      this.products = prods;
-    });
+  async ngOnInit(): Promise<void> {
+     this.updateProducts();
+  }
+
+  async updateProducts(): Promise<void> {
+    const prods = await this.productService.getAllProducts();
+    this.products = prods;
   }
 
   setProduct(product: Product): void {
+    this.updateProducts();
+    this.selectedProduct = product;
+  }
+
+  setSingleProduct(product: Product): void{
     this.selectedProduct = product;
   }
 
   setProducts(products: Array<Product>): void {
+    this.updateProducts();
     this.products = products;
   }
 

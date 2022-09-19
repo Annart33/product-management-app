@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { Product } from 'src/app/models/product';
 import { GlobalService } from 'src/app/services/global-service.service';
 import { ProductService } from 'src/app/services/product-service.service';
@@ -10,6 +10,7 @@ import { ProductService } from 'src/app/services/product-service.service';
 })
 export class ProductDetailsComponent implements OnInit {
   @Input() selectedProd = new Product(0, "", "", 0);
+  @Output() selectedProdEvent = new EventEmitter<Product>();
 
   constructor(public globalService: GlobalService, private productService: ProductService) {
   }
@@ -17,18 +18,16 @@ export class ProductDetailsComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  save(product: Product): void {
-    const ob = this.productService.updateProduct(this.selectedProd.id, product.name, product.description, product.price);
-    ob.subscribe(prod => {
-      this.globalService.hideCard();
-    });
+  async save(product: Product): Promise<void> {
+    await this.productService.updateProduct(this.selectedProd.id, product.name, product.description, product.price);
+    this.globalService.hideCard();
+    this.selectedProdEvent.emit(this.selectedProd);
   }
 
-  add(product: Product) {
-    const ob = this.productService.addProduct(product);
-    ob.subscribe(prod => {
-      this.globalService.hideAddProd();
-    });
+  async add(product: Product) {
+    await this.productService.addProduct(product);
+    this.globalService.hideAddProd();
+    this.selectedProdEvent.emit(this.selectedProd);
   }
 
 }

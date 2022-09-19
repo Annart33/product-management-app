@@ -3,6 +3,11 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    cursor: pointer;
+}
+
+.card:hover{
+    cursor: pointer;
 }
 
 .prod-image {

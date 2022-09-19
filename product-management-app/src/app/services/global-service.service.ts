@@ -41,11 +41,4 @@ export class GlobalService {
     this.currProd = product;
     this.showCard();
   }
-
-  getCurrProd(): Product | undefined {
-    return this.currProd;
-  }
-
-
-
 }

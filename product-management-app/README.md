@@ -16,10 +16,10 @@ The app simulates asynchronous calls to local storage with a timeout of 1000 ms 
 #### Layout
 Contains the app's layout components and division into sections
 
-### Services
+#### Services
 Responsible for communication between components, communication with local storage, state management, etc.
 
-### Shared
+#### Shared
 Contains all objects, enums, components, utils that are used by multiple sources.
 
 

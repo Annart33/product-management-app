@@ -8,13 +8,13 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The appli
 
 ## Product Overview
 
-The following app is a product management app which allows you to add get all products from storage, add new products, delete, edit & search for products.
+The following app is a product management app which allows you to get all products from local storage (or database for that matter), add new products, delete, edit & search for products.
 
 The app simulates asynchronous calls to local storage with a timeout of 1000 ms (one second) and returns a promise.
 
 ### The project contains a few major sections:
 #### Layout
-Contains the app's layout components and division into sections
+Contains the app's layout components and division into sections.
 
 #### Services
 Responsible for communication between components, communication with local storage, state management, etc.
